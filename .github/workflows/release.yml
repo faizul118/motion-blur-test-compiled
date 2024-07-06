@@ -20,7 +20,7 @@ jobs:
       run: sudo apt-get install -y g++
 
     - name: Compile main.cpp
-      run: g++ -o main src/main.cpp
+      run: g++ -o main /src/main.cpp
 
     - name: Archive binary
       uses: actions/upload-artifact@v2
