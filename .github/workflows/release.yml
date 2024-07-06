@@ -27,7 +27,7 @@ jobs:
     - name: Archive shared library
       uses: actions/upload-artifact@v2
       with:
-        name: shared-library
+        name: libmymodule
         path: libmymodule.so
 
   release:
@@ -42,8 +42,8 @@ jobs:
     - name: Download shared library
       uses: actions/download-artifact@v2
       with:
-        name: shared-library
-        path: libmymodule.so
+        name: libmymodule
+        path: ./libmymodule.so  # Ensure correct path to save the downloaded file
 
     - name: Create Release
       id: create_release
