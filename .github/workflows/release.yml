@@ -22,13 +22,13 @@ jobs:
         sudo apt-get install -y g++ libegl1-mesa-dev libgles2-mesa-dev
 
     - name: Compile main.cpp
-      run: g++ -o main src/main.cpp -lEGL -lGLESv2 -v
+      run: g++ -shared -fPIC -o libmymodule.so src/main.cpp -ldl -lEGL -lGLESv2
 
-    - name: Archive binary
+    - name: Archive shared library
       uses: actions/upload-artifact@v2
       with:
-        name: main-binary
-        path: main
+        name: shared-library
+        path: libmymodule.so
 
   release:
     needs: build
@@ -39,11 +39,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Download binary
+    - name: Download shared library
       uses: actions/download-artifact@v2
       with:
-        name: main-binary
-        path: main
+        name: shared-library
+        path: libmymodule.so
 
     - name: Create Release
       id: create_release
@@ -62,6 +62,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./main
-        asset_name: main
+        asset_path: ./libmymodule.so
+        asset_name: libmymodule.so
         asset_content_type: application/octet-stream
