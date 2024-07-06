@@ -22,7 +22,7 @@ jobs:
         sudo apt-get install -y g++ libegl1-mesa-dev libgles2-mesa-dev
 
     - name: Compile main.cpp
-      run: g++ -o main src/main.cpp -lEGL -lGLESv2
+      run: g++ -o main src/main.cpp -lEGL -lGLESv2 -v
 
     - name: Archive binary
       uses: actions/upload-artifact@v2
